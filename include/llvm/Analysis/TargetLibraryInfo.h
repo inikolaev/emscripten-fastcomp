@@ -18,6 +18,18 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/Pass.h"
 
+// On musl libc the fopen64 and fopen are the same thing, but for
+// compatibility they have a `#define fopen64 fopen`. Same applies for
+// fseek64, fstat64, fstatvfs64, ftello64, lstat64, stat64 and tmpfile64.
+#undef fopen64
+#undef fseeko64
+#undef fstat64
+#undef fstatvfs64
+#undef ftello64
+#undef lstat64
+#undef stat64
+#undef tmpfile64
+
 namespace llvm {
 template <typename T> class ArrayRef;
 
